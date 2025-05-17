@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Tazas</title>
+  <style>
+    body { background: #0a1a2f; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    form { background: #001f3f; padding: 2rem; border-radius: 8px; display: flex; flex-direction: column; gap: 1rem; width: 300px; }
+    input { padding: 0.5rem; font-size: 1rem; }
+    button { background: #FFD700; border: none; padding: 0.5rem; font-weight: bold; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <form onsubmit="login(event)">
+    <h2>Login</h2>
+    <input id="username" placeholder="Username" required>
+    <input id="password" type="password" placeholder="Password" required>
+    <button>Login / Signup</button>
+  </form>
+
+  <script>
+    // function login(e) {
+    //   e.preventDefault();
+    //   const username = document.getElementById('username').value;
+    //   const password = document.getElementById('password').value;
+    //   fetch('/api/login/', {
+    //     method: 'POST',
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: JSON.stringify({username, password})
+    //   }).then(res => res.json())
+    //     .then(data => {
+    //       if (data.status) location.href = '/';
+    //       else alert(data.error || 'Something went wrong');
+    //     });
+
+    // }
+
+    function login(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      fetch('/api/login/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username, password})
+      }).then(res => res.json())
+        .then(data => {
+          alert(data.status);
+          if (data.status === 'signed up and logged in') {
+            location.href = '/';
+          }
+          if (data.status === 'logged in') {
+            location.href = '/';
+          }
+        })
+        .catch(() => alert('Something went wrong'));
+    }
+
+
+  </script>
+</body>
+</html>
